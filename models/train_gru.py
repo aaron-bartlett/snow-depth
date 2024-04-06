@@ -25,7 +25,7 @@ device = 'metal' if USE_CUDA else 'cpu'
 print(f"Using '{device}' device")
 
 
-df = pd.read_csv("large_dataset.csv", index_col="DATE")
+df = pd.read_csv("../data/large_dataset.csv", index_col="DATE")
 df.index = pd.to_datetime(df.index)
 features_list = ["AWND","PRCP","SNOW","SNWD","TMAX","TMIN","WDFX","WSFX"]
 #features_list = ["AWND","PRCP","SNOW","SNWD","TMAX","TMIN","WSF2"]
@@ -107,12 +107,12 @@ for epoch in range(n_epochs):
     v_losses.append(valid_loss)
         
     print(f'{epoch} - train: {epoch_loss}, valid: {valid_loss}')
-    path = f"save_states/{model_num}_{epoch}.pth"
+    path = f"../save_states/{model_num}_{epoch}.pth"
     torch.save(model.state_dict(), path)
 best_epoch = np.argmin(v_losses)
 print(f"Best Validation Loss: Epoch {best_epoch} with {np.min(v_losses)}")
 for i in range(n_epochs):
     if(i != best_epoch):
-        os.remove(f"save_states/{model_num}_{i}.pth")
+        os.remove(f"../save_states/{model_num}_{i}.pth")
 
 plot_losses(t_losses, v_losses)

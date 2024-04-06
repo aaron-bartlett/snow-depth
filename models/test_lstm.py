@@ -24,7 +24,7 @@ print(f"Using '{device}' device")
 
 
 
-df = pd.read_csv("large_dataset.csv", index_col="DATE")
+df = pd.read_csv("../data/large_dataset.csv", index_col="DATE")
 df.index = pd.to_datetime(df.index)
 features_list = ["AWND","PRCP","SNOW","SNWD","TMAX","TMIN","WDF2","WSF2"]
 targets_list = ["SNWD"]
@@ -33,10 +33,10 @@ targets_list = ["SNWD"]
 df = df[features_list].copy()
 df = df.fillna(0)
 
-PATH = "save_states/001_0.pth"
+PATH = "../save_states/001_0.pth"
 USE_NORM = False
 if(len(sys.argv) > 3):
-    PATH = f"save_states/{sys.argv[1]}_{sys.argv[2]}.pth"
+    PATH = f"../save_states/{sys.argv[1]}_{sys.argv[2]}.pth"
     if('-n' in sys.argv):
         USE_NORM = True
         print("Using Normalized Data")
